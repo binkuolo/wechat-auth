@@ -8,30 +8,39 @@
 
 
 #### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  clone 项目
+2.  yarn 或者 npm install
+3.  yarn start 获取 npm run start
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
+1.  项目配置参考umi
+2.  打包项目生产的dist文件夹目录上传到nginx站点目录
+#### Nginx配置
+```
+server {
+  listen 80;
+  listen 443;
+  server_name ***.com;
+  index index.html index.php;
+  root /home/www/wechat/dist;
+  # 以下3行匹配不同到前缀请求将发到不同的api服务器、配置多个完成多站点授权
+  location /api前缀 {
+    proxy_pass https://***.com/实际api前缀;
+  }
+  location / {
+     try_files $uri $uri/ /index.html;
+  }
+  # 不启用ssl可以注释以下4行 和 上面listen 433
+  ssl on;
+  ssl_certificate crt证书实际路径;
+  ssl_certificate_key 证书钥匙实际路径;
+  ssl_session_timeout  5m;
+}
+```
 #### 参与贡献
 
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
